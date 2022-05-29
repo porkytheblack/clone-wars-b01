@@ -11,7 +11,7 @@ function Footer() {
     <div style={{width: "90%"}} className="flex mb-2 flex-col items-center  justify-start">
         <div className="w-full flex flex-col items-center justify-center" style={{height: "200px"}} >
             <Typography variant="body1" style={{marginBottom: "20px"}} fontFamily={"AirbnbCereal, 'sans-serif'"} color="primary">
-                Keep up to date with Airbnb's creative team - subscribe to our newsletter and stay informed
+                Keep up to date with Airbnb&#39;s creative team - subscribe to our newsletter and stay informed
             </Typography>
             <Box width={"400px"} height={"50px"} className="border border-white flex flex-row items-center justify-between" >
                 <div className="flex p-3 flex-row items-center justify-start">

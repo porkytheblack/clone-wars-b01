@@ -20,7 +20,10 @@ function MyApp(props: MyAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <link rel="icon" type="svg" href="/assets/logo/airbnb-logo-white.svg" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Airbnb Clone</title>
+        <meta name="description" content="a clone of airbnb quicksand project's site" />
       </Head>
       <ThemeProvider theme={theme}>
       <StyledEngineProvider injectFirst>
