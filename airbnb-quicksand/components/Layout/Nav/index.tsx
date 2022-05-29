@@ -7,7 +7,7 @@ import Logo from '../../Logo'
 
 function Nav() {
   return (
-      <Box className="w-full flex flex-row items-center justify-center h-16 fixed bg-black">
+      <Box className="w-full z-[20] flex flex-row items-center justify-center h-16 fixed bg-black">
           <ContainerBox className="flex h-full flex-row  items-center justify-between" >
               <Box className="flex flex-row items-center justify-start w-4/5 md:w-1/2" >
                   <Logo/>
