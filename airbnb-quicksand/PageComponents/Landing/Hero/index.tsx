@@ -1,21 +1,49 @@
 import styled from '@emotion/styled'
-import { Box, Link, Typography } from '@mui/material'
-import React from 'react'
+import { KeyboardArrowDown } from '@mui/icons-material'
+import { Box, IconButton, Link, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import DrawLine from '../../../components/Lines/Line1'
 import QSand from "../../../public/assets/svgs/quicksand.svg"
+import {css} from "@emotion/react"
+import useWindowSize from '../../../helpers/useWindowSize'
 
 function Hero() {
+  const [mobile, set_mobile] = useState<boolean>(false)
+  const [animate_lines, set_animate_lines] = useState<boolean>(false)
+  const {width, height} = useWindowSize()
+  useEffect(()=>{
+    if(typeof width !== "undefined"){
+      if(width <= 768){
+        set_mobile(true)
+      }else{
+        set_mobile(false)
+      }
+      if(width <= 1350){
+        set_animate_lines(false)
+      }else{
+        set_animate_lines(true)
+      }
+
+    }
+  }, [,width]) 
   return (
-    <Box className="flex flex-row w-full " >
-        <CustomBox className="flex flex-row h-[400px]   w-full items-center justify-between  " >
-          <Box height="100%" width="50%" bgcolor="yellow" className="flex overflow-hidden  h-full flex-col w-1/2! bg-yellow" >
+    <Box className="flex flex-row relative w-full md:w-4/5 " >
+
+        {animate_lines && <DrawLine repeat pointer_type='left-pointer' style={{bottom: "-40%", right: "40%"}} />}
+        {animate_lines && <DrawLine repeat  pointer_type='long-pointer' style={{bottom: "-193%", zIndex: 1, right: "-5%"}} />}
+        <CustomBox className="flex   w-full items-center justify-between  " >
+          <Box height="100%" className="flex overflow-hidden  h-full flex-col w-1/2! md:w-1/2" >
               <CustomVideoBox   autoPlay muted loop >
                 <source src={"/background.mp4"} type='video/mp4' />
                 Your browser does not support video
               </CustomVideoBox>
               <QComponent/>
           </Box>
-          <Box width="50%" className="flex h-full flex-col items-center justify-center w-1/2" >    
-              <div style={{maxWidth: 358}}  className="flex flex-col  items-start bg-yellow-500 justify-start" >
+          <IconButton classes={css`@media(max-width: 768px){display: flex;} display: none;`} className="flex mt-2 mb-6 md:hidden" >
+            <KeyboardArrowDown className="w-8 h-8 text-white" />
+          </IconButton>
+          <Box  className="flex h-full flex-col items-center justify-center w-full  md:w-1/2" >    
+              <ContentDiv  className="flex w-4/5 flex-col  p-2 justify-start" >
                 <Typography variant="h2" className="uppercase" textTransform={"uppercase"} align='left' sx={{
                   color: "#cfba9b",
                   fontSize: "10px",
@@ -35,8 +63,8 @@ function Hero() {
                 <Link href="#" underline='always' className="cursor-pointer" >
                   Play Trailer
                 </Link>
-              </Box>
-              </div>
+                </Box>
+              </ContentDiv>
               
           </Box>
         </CustomBox>
@@ -47,7 +75,19 @@ function Hero() {
 
 export default Hero
 
+const ContentDiv = styled('div')`
+
+`
+
 const CustomBox = styled('div')`
+    @media(max-width: 768px){
+      border: none;
+      overflow: hidden;
+      height: 100%;
+      flex-direction: column;
+      border-radius: 0px;
+    }
+    flex-direction:row;
      border-radius: 20px;
      overflow: hidden;
      border: 1px solid white;
@@ -56,6 +96,10 @@ const CustomBox = styled('div')`
 `
 
 const CustomVideoBox  = styled('video')`
+  @media(max-width: 768px){
+    width: 100vw;
+    height: 90vh;
+  }
   width: 100%;
   height: 100%;
   aspect-ratio: auto 320/240;
@@ -64,8 +108,16 @@ const CustomVideoBox  = styled('video')`
  `
 
 const QComponent = styled(QSand)`
-    width: 430px;
-    height: auto;
-    position: absolute;
-    margin: auto auto;
+  position: absolute;
+  @media(max-width: 768px){
+    transform: scale(6);
+    top: 40vh;
+    left: 30vw;
+  }
+  @media(min-width: 768px){
+    transform: scale(5);
+    top: 30vh;
+    left: 15vw;
+  }
+
 `

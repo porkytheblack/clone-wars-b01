@@ -2,9 +2,12 @@ import { Box, Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import CascadeBoxes from '../components/Boxes/CascadeBoxes'
 import DescriptionCard from '../components/Boxes/DescriptionCard'
+import DrawLine from '../components/Lines/Line1'
+import useWindowSize from '../helpers/useWindowSize'
 import Hero from '../PageComponents/Landing/Hero'
 import IntroBlock from '../PageComponents/Landing/IntroBlock'
 import ProjectBlock from '../PageComponents/Landing/ProjectBlock'
@@ -14,12 +17,24 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const name = useAppSelector(state=>state.awesomeness.name)
+  var {width, height} = useWindowSize()
+  const [mobile, set_mobile] = useState<boolean>(false)
+  useEffect(()=>{
+    if(typeof width !== "undefined"){
+      if(width > 768){
+        set_mobile(false)
+      }
+      if(width <= 768){
+        set_mobile(true)
+      }
+    }
+  }, [,width])
   return (
-    <Box height="100%"  className={`flex flex-col items-start pt-[100px] overflow-x-hidden justify-center w-[90%] min-h-screen pb-[200px] h-full`} > 
+    <Box height="100%"  className={`flex flex-col items-center md:pt-[100px] w-full justify-center md:w-[100%] min-h-screen pb-[200px] h-full`} > 
        <Hero/>
        <IntroBlock/>
        <YTVideo/>
-       <ProjectBlock video={"YHof8L-pZvk"} direction="left" >
+       <ProjectBlock video={"YHof8L-pZvk"} Line={<DrawLine pointer_type={mobile?'left-small-pointer':'short-left-pointer'} style={mobile ? { bottom: "-20%" }:{bottom: "-50%", left: "5%"}} />} direction="left" >
         <DescriptionCard 
           title={"Porfirio Gutiérrez"} 
           sub_title={"Zapotec Textile Artist & Activist"} 
@@ -28,7 +43,7 @@ const Home: NextPage = () => {
           ig_link={"https://www.instagram.com/porfirio_gutierrez/"}
           />
        </ProjectBlock>
-       <ProjectBlock video={"zmySoWjEmD4"} direction="right" >
+       <ProjectBlock video={"zmySoWjEmD4"} Line={<DrawLine pointer_type={mobile?"right-small-pointer":'short-right-pointer'} style={mobile?{bottom: "-20%"}:{bottom: "-50%", right: "15%"}} />} direction="right" >
         <DescriptionCard 
           title={"Art Comes First"} 
           sub_title={"Tailors, Designers, Artists, DJs"} 
@@ -37,7 +52,7 @@ const Home: NextPage = () => {
           ig_link={"https://www.instagram.com/artcomesfirst/"}
           />
        </ProjectBlock>
-       <ProjectBlock video="B6KwYthVVOo" direction="left" >
+       <ProjectBlock video="B6KwYthVVOo" Line={<DrawLine pointer_type={mobile?'left-small-pointer':'short-left-pointer'} style={mobile ? { bottom: "-20%" }:{bottom: "-50%", left: "5%"}} />} direction="left" >
         <DescriptionCard 
           title={"María Osado"} 
           sub_title={"Casting Director & Model Agent"} 
@@ -46,7 +61,7 @@ const Home: NextPage = () => {
           ig_link={"https://www.instagram.com/mariaosado/"}
           />
        </ProjectBlock>
-       <ProjectBlock video="B3CHUn5y3LU" direction="right" >
+       <ProjectBlock video="B3CHUn5y3LU" Line={<DrawLine pointer_type={mobile?"right-small-pointer":'short-right-pointer'} style={mobile?{bottom: "-20%"}:{bottom: "-50%", right: "15%"}} />} direction="right" >
         <DescriptionCard 
           title={"Ana Lamata"} 
           sub_title={"Art Historian, Hatmaker"} 
@@ -55,7 +70,7 @@ const Home: NextPage = () => {
           ig_link={"https://www.instagram.com/analamata/"}
           />
        </ProjectBlock>
-       <ProjectBlock video="SW5BrqEvL1s" direction="left" >
+       <ProjectBlock video="SW5BrqEvL1s" Line={<DrawLine pointer_type='arrow' style={mobile?{bottom: "-20%"}:{bottom: "-50%", right: "50%"}} />}  direction="left" >
         <DescriptionCard 
           title={"Andrés Mañon"} 
           sub_title={"Photographer, Makeup Artist"} 
@@ -64,7 +79,7 @@ const Home: NextPage = () => {
           ig_link={"https://www.instagram.com/electrobelle/"}
           />
        </ProjectBlock>
-       <div style={{marginTop: "230px"}} className="flex flex-row items-center justify-center w-full ">
+       <div style={{marginTop: "250px"}} className="hidden md:flex flex-row items-center justify-center w-full ">
          <CascadeBoxes height="small" width="small" direction="right" >
            <div className="flex  flex-col items-start justify-start p-7" >
            <Typography variant="h6" align="left"  className="text-center mb-4 text-white" fontFamily={"AirbnbCereal, 'sans-serif'"}>
@@ -78,6 +93,17 @@ const Home: NextPage = () => {
              </Typography>
            </div>
          </CascadeBoxes>
+       </div>
+       <div style={{marginTop: "200px"}} className="flex md:hidden flex-col items-start justify-start p-7 w-4/5 border border-white">
+            <Typography variant="h6" align="center" width="100%"  className="text-center mb-4 text-white" fontFamily={"AirbnbCereal, 'sans-serif'"}>
+              Want more ?
+           </Typography>
+             <Typography align="left" variant="body2"  className="text-center mb-3 text-white" fontFamily={"AirbnbCereal, 'sans-serif'"}>
+                  To discover more boundary pushing global creators, check out our Airbnb Design—Talks series and follow us on Instagram.
+             </Typography>
+             <Typography align="left" variant="body2"  className="text-center mb-3 text-white" fontFamily={"AirbnbCereal, 'sans-serif'"}>
+             Special thanks to Texto for introducing us to some of the artists and providing the beautiful Casa Pedregal as one of our shooting locations.
+             </Typography>
        </div>
     </Box>
   )

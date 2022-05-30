@@ -18,6 +18,8 @@ function Logo() {
 
 export default Logo
 
+
+
 const LogoText = styled('h5')`
     font-family: AirbnbCereal, 'sans-serif';
     font-weight: 200;
